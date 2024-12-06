@@ -1,4 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, Numeric
+from sqlalchemy.orm import validates
 from models.base import Base
 from sqlalchemy import CheckConstraint
 
@@ -16,3 +17,15 @@ class OrderItemModel(Base):
         CheckConstraint("quantity >= 0", name="check_quantity_positive"),
         CheckConstraint("price >= 0", name="check_price_positive"),
     )
+
+    @validates("quantity")
+    def validate_quantity(self, key, value):
+        if value < 0:
+            raise ValueError("Quantity must be greater than or equal to 0")
+        return value
+
+    @validates("price")
+    def validate_price(self, key, value):
+        if value < 0:
+            raise ValueError("Price must be greater than or equal to 0")
+        return value
