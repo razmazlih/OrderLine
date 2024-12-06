@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
-from schemas.order_item_schemas import OrderItemResponseSchema
 
 
 class OrderCreateSchema(BaseModel):
@@ -15,7 +14,6 @@ class OrderSchema(BaseModel):
     restaurant_id: int
     total_price: float
     ordered_at: datetime
-    items: list[OrderItemResponseSchema]
 
     class Config:
         orm_mode = True
