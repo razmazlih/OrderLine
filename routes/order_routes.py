@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 
 from database import get_db
-from models import Order as OrderModel
+from models.order_model import Order as OrderModel
 from schemas.order_schemas import OrderCreate, Order, OrderUpdate
 
 router = APIRouter(prefix="/orders", tags=["Order"])
