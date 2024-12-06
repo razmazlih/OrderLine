@@ -27,7 +27,7 @@ def read_order_items_by_order(
 
 
 @order_item_router.post("/", response_model=OrderItemResponseSchema)
-def create_order(order_item: OrderItemCreateSchema, db: Session = Depends(get_db)):
+def create_order_item(order_item: OrderItemCreateSchema, db: Session = Depends(get_db)):
     new_order_item = OrderItemModel(**order_item.model_dump())
     db.add(new_order_item)
     db.commit()
@@ -36,7 +36,7 @@ def create_order(order_item: OrderItemCreateSchema, db: Session = Depends(get_db
 
 
 @order_item_router.put("/{order_item_id}/", response_model=OrderItemResponseSchema)
-def update_order(
+def update_order_item(
     order_item_id: int,
     order_item_update: UpdateOrderItemSchema,
     db: Session = Depends(get_db),
