@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, Float, DateTime
 from models.base import Base
 
+
 class OrderModel(Base):
     __tablename__ = "orders"
 

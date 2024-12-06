@@ -4,13 +4,14 @@ from datetime import datetime
 
 from database import get_db
 from models.order_model import OrderModel
-from schemas.order_schemas import OrderCreate, Order, OrderUpdate
+from schemas.order_schemas import OrderCreateSchema, OrderSchema, OrderUpdateSchema
 
 router = APIRouter(prefix="/orders", tags=["Order"])
 
+
 # יצירת הזמנה חדשה
-@router.post("/", response_model=Order)
-def create_order(order: OrderCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=OrderSchema)
+def create_order(order: OrderCreateSchema, db: Session = Depends(get_db)):
     db_order = OrderModel(
         user_id=order.user_id,
         restaurant_id=order.restaurant_id,
@@ -22,24 +23,27 @@ def create_order(order: OrderCreate, db: Session = Depends(get_db)):
     db.refresh(db_order)
     return db_order
 
+
 # שליפת כל ההזמנות
-@router.get("/", response_model=list[Order])
+@router.get("/", response_model=list[OrderSchema])
 def read_orders(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     orders = db.query(OrderModel).offset(skip).limit(limit).all()
     return orders
 
+
 # שליפת הזמנה לפי ID
-@router.get("/{order_id}", response_model=Order)
+@router.get("/{order_id}", response_model=OrderSchema)
 def read_order(order_id: int, db: Session = Depends(get_db)):
     order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
     if order is None:
         raise HTTPException(status_code=404, detail="Order not found")
     return order
 
+
 # עדכון הזמנה
-@router.put("/{order_id}", response_model=Order)
+@router.put("/{order_id}", response_model=OrderSchema)
 def update_order(
-    order_id: int, order_update: OrderUpdate, db: Session = Depends(get_db)
+    order_id: int, order_update: OrderUpdateSchema, db: Session = Depends(get_db)
 ):
     order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
     if order is None:
@@ -49,6 +53,7 @@ def update_order(
     db.commit()
     db.refresh(order)
     return order
+
 
 # מחיקת הזמנה
 @router.delete("/{order_id}")
