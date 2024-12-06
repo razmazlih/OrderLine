@@ -2,7 +2,7 @@ from pydantic import BaseModel, field_validator
 from typing import Optional, Required
 
 
-class CreateOrderItemSchema(BaseModel):
+class OrderItemCreateSchema(BaseModel):
     order_id: int
     menu_item_id: int
     quantity: int
