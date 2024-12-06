@@ -6,11 +6,11 @@ from database import get_db
 from models.order_model import OrderModel
 from schemas.order_schemas import OrderCreateSchema, OrderSchema, OrderUpdateSchema
 
-router = APIRouter(prefix="/orders", tags=["Order"])
+order_router = APIRouter(prefix="/orders", tags=["Order"])
 
 
 # יצירת הזמנה חדשה
-@router.post("/", response_model=OrderSchema)
+@order_router.post("/", response_model=OrderSchema)
 def create_order(order: OrderCreateSchema, db: Session = Depends(get_db)):
     db_order = OrderModel(
         user_id=order.user_id,
@@ -25,14 +25,14 @@ def create_order(order: OrderCreateSchema, db: Session = Depends(get_db)):
 
 
 # שליפת כל ההזמנות
-@router.get("/", response_model=list[OrderSchema])
+@order_router.get("/", response_model=list[OrderSchema])
 def read_orders(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     orders = db.query(OrderModel).offset(skip).limit(limit).all()
     return orders
 
 
 # שליפת הזמנה לפי ID
-@router.get("/{order_id}", response_model=OrderSchema)
+@order_router.get("/{order_id}", response_model=OrderSchema)
 def read_order(order_id: int, db: Session = Depends(get_db)):
     order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
     if order is None:
@@ -41,7 +41,7 @@ def read_order(order_id: int, db: Session = Depends(get_db)):
 
 
 # עדכון הזמנה
-@router.put("/{order_id}", response_model=OrderSchema)
+@order_router.put("/{order_id}", response_model=OrderSchema)
 def update_order(
     order_id: int, order_update: OrderUpdateSchema, db: Session = Depends(get_db)
 ):
@@ -56,7 +56,7 @@ def update_order(
 
 
 # מחיקת הזמנה
-@router.delete("/{order_id}")
+@order_router.delete("/{order_id}")
 def delete_order(order_id: int, db: Session = Depends(get_db)):
     order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
     if order is None:
