@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from database import engine
-from models.order_model import Base
+from init_db import init_db
+from models import Base
 from routes.order_routes import router as order_router
 
 # יצירת בסיס הנתונים
-Base.metadata.create_all(bind=engine)
+init_db()
 
 app = FastAPI()
 
