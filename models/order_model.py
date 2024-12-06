@@ -1,9 +1,7 @@
 from sqlalchemy import Column, Integer, Float, DateTime
-from sqlalchemy.ext.declarative import declarative_base
+from models.base import Base
 
-OrderBase = declarative_base()
-
-class OrderModel(OrderBase):
+class OrderModel(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True, index=True)

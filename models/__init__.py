@@ -1,4 +1,5 @@
-from models.order_model import OrderBase
+from models.base import Base
+from database import engine
 
-# איחוד כל ה-Base תחת משתנה אחד
-Base = [OrderBase]
+def init_db():
+    Base.metadata.create_all(bind=engine)
