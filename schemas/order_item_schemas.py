@@ -22,8 +22,8 @@ class OrderItemCreateSchema(BaseModel):
 
 
 class UpdateOrderItemSchema(BaseModel):
-    quantity: Optional[int]
-    price: Optional[float]
+    quantity: Optional[int] = None
+    price: Optional[float] = None
 
 
 class OrderItemResponseSchema(BaseModel):
