@@ -11,7 +11,12 @@ class OrderModel(Base):
     user_id = Column(Integer, nullable=False, index=True)
     restaurant_id = Column(Integer, nullable=False, index=True)
     ordered_at = Column(DateTime, default=None)
-    items = relationship("OrderItemModel", backref="order", cascade="all, delete-orphan")
+    items = relationship(
+        "OrderItemModel", backref="order", cascade="all, delete-orphan"
+    )
+    status = relationship(
+        "OrderStatusModel", back_populates="order", cascade="all, delete-orphan"
+    )
 
     @hybrid_property
     def total_price(self):
