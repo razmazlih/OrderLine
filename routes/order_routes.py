@@ -43,7 +43,7 @@ def update_order(
     order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
     if order is None:
         raise HTTPException(status_code=404, detail="Order not found")
-    for key, value in order_update.dict(exclude_unset=True).items():
+    for key, value in order_update.model_dump(exclude_unset=True).items():
         setattr(order, key, value)
     db.commit()
     db.refresh(order)
