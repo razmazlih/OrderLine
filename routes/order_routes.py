@@ -4,7 +4,7 @@ from datetime import datetime
 
 from database import get_db
 from models.order_model import OrderModel
-from schemas.order_schemas import OrderCreateSchema, OrderSchema, OrderUpdateSchema
+from schemas.order_schemas import FullOrderSchema, OrderCreateSchema, OrderSchema, OrderUpdateSchema
 
 order_router = APIRouter(prefix="/orders", tags=["Order"])
 
@@ -28,7 +28,7 @@ def read_orders(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     return orders
 
 
-@order_router.get("/{order_id}/", response_model=OrderSchema)
+@order_router.get("/{order_id}/", response_model=FullOrderSchema)
 def read_order(order_id: int, db: Session = Depends(get_db)):
     order = db.query(OrderModel).filter(OrderModel.id == order_id).first()
     if order is None:
