@@ -13,7 +13,7 @@ services:
     networks:
       - local_network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 5s
       timeout: 2s
       retries: 5
@@ -42,6 +42,7 @@ services:
 
 volumes:
   postgres_orderline_data:
+
 
 networks:
   local_network:
