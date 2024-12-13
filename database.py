@@ -3,12 +3,13 @@ from sqlalchemy import create_engine
 from os import getenv
 
 
-DATABASE_USERNAME= getenv("DATABASE_USERNAME", "database-name")
-DATABASE_PASSWORD=getenv("DATABASE_PASSWORD", "password")
-DATABASE_NAME=getenv("DATABASE_NAME", "db-name")
-DATABASE_HOST=getenv("DATABASE_HOST", "localhost")
+POSTGRES_USER= getenv("POSTGRES_USER", "database-name")
+POSTGRES_PASSWORD=getenv("POSTGRES_PASSWORD", "password")
+POSTGRES_DB=getenv("POSTGRES_DB", "db-name")
+POSTGRES_HOST=getenv("POSTGRES_HOST", "localhost")
+POSTGRES_PORT=getenv("POSTGRES_PORT", 5432)
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOST}/{DATABASE_NAME}"
+SQLALCHEMY_DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
