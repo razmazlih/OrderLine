@@ -10,6 +10,8 @@ class OrderCreateSchema(BaseModel):
     user_id: int
     restaurant_id: int
 
+class SmallStatusSchema(BaseModel):
+    status: str
 
 class OrderSchema(BaseModel):
     id: Optional[int] = None
@@ -17,6 +19,7 @@ class OrderSchema(BaseModel):
     restaurant_id: int
     total_price: float
     ordered_at: datetime
+    status: List[SmallStatusSchema]
 
     class Config:
         orm_mode = True
