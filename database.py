@@ -10,6 +10,9 @@ POSTGRES_HOST=getenv("POSTGRES_HOST", "localhost")
 POSTGRES_PORT=getenv("POSTGRES_PORT", 5432)
 
 SQLALCHEMY_DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+
+# SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
+
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
