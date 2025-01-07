@@ -23,7 +23,7 @@ def create_order(order: OrderCreateSchema, db: Session = Depends(get_db)):
 
 
 @order_router.get("/", response_model=list[OrderSchema])
-def read_orders(user_id: int, skip: int = 0, limit: int = 1000, db: Session = Depends(get_db)):
+def read_orders(user_id: int, db: Session = Depends(get_db)):
     orders = db.query(OrderModel).filter(OrderModel.user_id == user_id).all()
     return orders
 
