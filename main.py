@@ -5,15 +5,16 @@ from routes.order_routes import order_router
 from routes.order_item_routes import order_item_router
 from routes.order_status_websocket import order_status_ws_router
 from routes.order_status_routes import order_status_router
+from os import getenv
+import dotenv
+
+dotenv.load_dotenv()
 
 init_db()
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000"
-]
+origins = getenv('CORS_ALLOWED_ORIGINS', ['http://localhost:3000']).split(',')
 
 app.add_middleware(
     CORSMiddleware,
