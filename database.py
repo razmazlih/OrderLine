@@ -2,10 +2,14 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from os import getenv
 
+import dotenv
 
-POSTGRES_USER= getenv("POSTGRES_USER", "database-name")
-POSTGRES_PASSWORD=getenv("POSTGRES_PASSWORD", "password")
-POSTGRES_DB=getenv("POSTGRES_DB", "db-name")
+dotenv.load_dotenv()
+
+
+POSTGRES_USER= getenv("POSTGRES_USER", "razmaz")
+POSTGRES_PASSWORD=getenv("POSTGRES_PASSWORD", "razmaz123")
+POSTGRES_DB=getenv("POSTGRES_DB", "orderline-db")
 POSTGRES_HOST=getenv("POSTGRES_HOST", "localhost")
 POSTGRES_PORT=getenv("POSTGRES_PORT", 5432)
 
