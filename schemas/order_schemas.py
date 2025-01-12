@@ -12,6 +12,7 @@ class OrderCreateSchema(BaseModel):
 
 class SmallStatusSchema(BaseModel):
     status: str
+    updated_at: datetime
 
 class OrderSchema(BaseModel):
     id: Optional[int] = None
