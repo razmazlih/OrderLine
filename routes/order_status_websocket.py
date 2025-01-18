@@ -36,4 +36,4 @@ async def websocket_endpoint(websocket: WebSocket, order_id: int):
 
 
 async def notify_order_status(order_id: int, status: str):
-    await manager.broadcast(f"Order {order_id} status updated to {status}")
+    await manager.broadcast(status)
